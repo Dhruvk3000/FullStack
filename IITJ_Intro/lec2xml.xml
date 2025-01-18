@@ -1,0 +1,8 @@
+<Patients>
+    <Patient id="p1">
+     <Name>John</Name>
+     <Address>
+     <Street>Paud road </Street>
+     </Address>
+    </Patient>
+</Patients>

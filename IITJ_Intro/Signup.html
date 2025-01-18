@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background-color:rgb(225, 185, 67);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .signup-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .signup-container h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+            </div>
+            <div class="form-group">
+                <label for="captcha">Enter the text: <span id="captchaText"></span></label>
+                <input type="text" class="form-control" id="captcha" placeholder="Enter the text" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-3">Sign Up</button>
+            <button onclick="location.href='lec1.html'" class="btn btn-secondary btn-block mt-3">Go to Home Page</button>
+        </form>
+    </div>
+    <script>
+        function generateCaptcha() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const captchaText = generateCaptcha();
+            document.getElementById('captchaText').textContent = captchaText;
+
+            document.getElementById('signupForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const captchaInput = document.getElementById('captcha').value;
+
+                // Check if passwords match
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+
+                // Check if CAPTCHA is correct
+                if (captchaInput !== captchaText) {
+                    alert('CAPTCHA is incorrect. Please try again.');
+                    return;
+                }
+
+                // Display the form data (this is a placeholder for actual form submission to a server)
+                alert(`Username: ${username}\nEmail: ${email}\nPassword: ${password}\nCAPTCHA: ${captchaInput}`);
+
+                // Clear the form and generate a new CAPTCHA
+                document.getElementById('signupForm').reset();
+                document.getElementById('captchaText').textContent = generateCaptcha();
+            });
+        });
+    </script>
+</body>
+</html>
